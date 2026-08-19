@@ -16,12 +16,16 @@ export const projects = [
     date: "2026",
   },
   {
-    title: "",
+    title: "Library Database",
+    description: "Built a library management system to organize and track books in my own library. Learned about database design, SQL, and user interface development.",
+    link: "https://github.com/yourname/project-three",
+    tags: ["Python", "SQL", "Tkinter"],
+    date: "2026",
   },
   {
     title: "Personal Website",
     description: "Created a personal website to showcase my projects and skills. Learned about React, Vite, and deployment techniques.",
-    link: "https://github.com/yourname/project-three",
+    link: "https://github.com/Scylthren",
     tags: ["React", "Vite", "Deployment"],
     date: "2025",
   },

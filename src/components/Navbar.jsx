@@ -11,7 +11,7 @@ export default function Navbar() {
     <header className="nav">
       <div className="nav-inner">
         <NavLink to="/" className="nav-mark">
-          Your Name
+          Noah Aguillon
         </NavLink>
         <ul className="nav-links">
           {links.map((link) => (
