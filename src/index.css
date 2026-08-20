@@ -1,12 +1,14 @@
 :root {
   /* Color */
-  --paper: #f2f1ec;
-  --ink: #171714;
-  --ink-soft: #55534b;
-  --line: #d9d6cb;
-  --accent: #3a3ff0; /* cobalt-violet, used sparingly */
-  --accent-tint: #eceeff;
-  --tag: #b8862e; /* muted mustard, for meta/labels */
+--paper: #EEF2F5;
+--ink: #17232E;
+--ink-soft: #52616D;
+--line: #CCD5DC;
+
+--accent: #477B9F;
+--accent-tint: #E3EDF3;
+
+--tag: #B08A52;
 
   /* Type */
   --font-display: "Fraunces", serif;
@@ -152,7 +154,9 @@ h1.page-title {
   float: right; /* or "right" */
   width: 250px;
   margin: 0 0 15px 32px;
-  border-radius: 4px;
+  border: 1px solid #C9D4DC;
+  border-radius: 6px;
+  filter: brightness(1.06) saturate(0.88);
 }
 
 @media (max-width: 600px) {

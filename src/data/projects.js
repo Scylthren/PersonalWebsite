@@ -10,7 +10,7 @@ export const projects = [
   {
     title: "Movie Club",
     description:
-      "Created a web aplication that compiled movie data from my own movie database and the OMDB API. Learned about React, Node.js, and data visualization techniques.",
+      "Created a web aplication that compiled movie data from my own movie database and the IMDB API. Learned about React, Node.js, and data visualization techniques.",
     link: "https://github.com/yourname/project-two",
     tags: ["Python", "React", "Node.js", "D3.js"],
     date: "2026",
@@ -25,8 +25,8 @@ export const projects = [
   {
     title: "Personal Website",
     description: "Created a personal website to showcase my projects and skills. Learned about React, Vite, and deployment techniques.",
-    link: "https://github.com/Scylthren",
+    link: "https://github.com/Scylthren/PersonalWebsite",
     tags: ["React", "Vite", "Deployment"],
-    date: "2025",
+    date: "2026",
   },
 ];
