@@ -33,6 +33,13 @@ function parseFrontmatter(raw) {
   return { meta, body: body.trim() };
 }
 
+// Rewrites markdown image paths like ![alt](/images/foo.png) so they
+// resolve correctly under Vite's base path (e.g. on GitHub Pages).
+function fixImagePaths(body) {
+  const base = import.meta.env.BASE_URL; // e.g. "/your-repo-name/"
+  return body.replace(/!\[([^\]]*)\]\(\/(?!\/)/g, `![$1](${base}`);
+}
+
 function slugFromPath(path) {
   return path.split("/").pop().replace(/\.md$/, "");
 }
@@ -46,7 +53,7 @@ export function getAllPosts() {
         title: meta.title || slugFromPath(path),
         date: meta.date || "",
         excerpt: meta.excerpt || "",
-        body,
+        body: fixImagePaths(body),
       };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
