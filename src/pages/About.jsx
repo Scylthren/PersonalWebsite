@@ -3,16 +3,18 @@ export default function About() {
     <div className="wrap">
       <p className="eyebrow">Hello</p>
       <h1 className="page-title">
-        I'm Noah Aguillon — I build the occasional project, and like to expereiment with new technologies.
+        Hi! I'm Noah Aguillon — I build the occasional project, and like to experiment with new technologies.
       </h1>
       <img className="wrap-image" src={`${import.meta.env.BASE_URL}images/noahA.jpeg`} alt="Noah Aguillon" />
       <div className="about-body">
         <p>
-          I graduated from the University of Texas at Austin in 2026. During my time in college, I found a passion for building web applications, working with databases, and configuring cloud infastructure.
-          I've had multiple opprtunities to work on projects with peers that allowed me to develope my skills within team environments, and I look forward to continuing to learn and grow as a developer.
+          I graduated from the University of Texas at Austin in 2026. During my time in college, I found a passion for building 
+          web applications, working with databases, and configuring cloud infrastructure. 
+          I've had multiple opportunities to work on projects with peers that have allowed me to develop my skills in team environments, 
+          and I look forward to continuing to learn and grow as a developer.
         </p>
         <p>
-          Whats on my docket as of late: building my database to keep track and recommend myself books that fit my interests. Check it out on the <a href="/projects">projects page</a>.
+          What's on my docket as of late: building my database to keep track of and recommend books to myself that fit my interests. Check it out on the <a href="/projects">projects page</a>.
         </p>
       </div>
       <div className="about-links">

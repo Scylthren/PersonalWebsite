@@ -4,7 +4,7 @@ date: 2026-08-18
 excerpt: And so it begins
 ---
 
-Recently Graduated with a Computer Science degree from UT Austin, now looking for a job. 
+Recently graduated with a Computer Science degree from UT Austin, now looking for a job. 
 
-This blog is mostly here to document my journey and fix up some projects I have left unfinished and start some new ones.
-Hopefully I'll blog about having a job soon enough.
+This blog is mostly here to document my journey, fix up some projects I have left unfinished, and start some new ones.
+Hopefully I'll blog about having a job soon enough.        
