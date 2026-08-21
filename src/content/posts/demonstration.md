@@ -8,4 +8,4 @@ I've been continuing to plan and see what kind of construction I'd need to do fo
 
 Decisions, Decisions.
 
-Afterthought: Shout out to Sean for pointing out some spelling mistakes. I'll actually double-check what I write from here on out. I'm also unsure if I should learn to use nefity so that I don't continuously need to deploy, or if that's negligible with a site this small.
+Afterthought: Shout out to Sean for pointing out some spelling mistakes. I'll actually double-check what I write from here on out. I'm also unsure if I should learn to use Netlify so that I don't continuously need to deploy, or if that's negligible with a site this small.
