@@ -1,3 +1,5 @@
+import { getAssetPath } from "../components/paths";
+
 export default function About() {
   return (
     <div className="wrap">
@@ -5,7 +7,7 @@ export default function About() {
       <h1 className="page-title">
         Hi! I'm Noah Aguillon — I build the occasional project, and like to experiment with new technologies.
       </h1>
-      <img className="wrap-image" src={`${import.meta.env.BASE_URL}images/noahA.jpeg`} alt="Noah Aguillon" />
+      <img className="wrap-image" src={`${getAssetPath("images/noahA.jpeg")}`} alt="Noah Aguillon" />
       <div className="about-body">
         <p>
           I graduated from the University of Texas at Austin in 2026. During my time in college, I found a passion for building 
