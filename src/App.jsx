@@ -5,6 +5,7 @@ import Projects from "./pages/Projects.jsx";
 import Blog from "./pages/Blog.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
 import Playground from "./pages/Playground.jsx";
+import GifSpace from "./pages/gifSpace.jsx";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/playground" element={<Playground />} />
+          <Route path="/gif" element={<GifSpace />} />
         </Routes>
       </main>
     </HashRouter>

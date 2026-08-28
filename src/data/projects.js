@@ -8,7 +8,7 @@ export const projects = [
     date: "2025",
   },
   {
-    title: "Movie Club",
+    title: "Movie Club - WIP",
     description:
       "Created a web aplication that compiled movie data from my own movie database and the IMDB API. Learned about React, Node.js, and data visualization techniques.",
     link: "https://github.com/yourname/project-two",
@@ -16,7 +16,7 @@ export const projects = [
     date: "2026",
   },
   {
-    title: "Library Database",
+    title: "Library Database - WIP",
     description: "Built a library management system to organize and track books in my own library. Learned about database design, SQL, and user interface development.",
     link: "https://github.com/yourname/project-three",
     tags: ["Python", "SQL", "Tkinter"],
