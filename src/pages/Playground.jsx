@@ -47,33 +47,6 @@ export default function Playground() {
             <h2>Spotlight following the mouse</h2>
             <p>To eventually be used as a visual effect in the movie club website.</p>
           </PopupModal>
-          <Button
-            className="glass"
-            title="Glass card"
-            image={getAssetPath("images/bulb.jpeg")}
-            onClick={() => console.log("Glass card clicked!")}
-            aria-label="Popout Modal"
-          >
-            <p>This is a popout modal.</p>
-          </Button>
-          <Button
-            className="glass"
-            title="Glass card"
-            image={getAssetPath("images/bulb.jpeg")}
-            onClick={() => console.log("Glass card clicked!")}
-          />
-          <Button
-            className="glass"
-            title="Glass card"
-            image={getAssetPath("images/bulb.jpeg")}
-            onClick={() => console.log("Glass card clicked!")}
-          />
-          <Button
-            className="glass"
-            title="Glass card"
-            image={getAssetPath("images/bulb.jpeg")}
-            onClick={() => console.log("Glass card clicked!")}
-          />
         </div>
       </div>
     </div>
