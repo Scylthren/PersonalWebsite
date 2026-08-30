@@ -16,7 +16,7 @@ export default function About() {
           and I look forward to continuing to learn and grow as a developer.
         </p>
         <p>
-          What's on my docket as of late: building my database to keep track of and recommend books to myself that fit my interests. Check it out on the <a href="/projects">projects page</a>.
+          What's on my docket as of late: building a web application that compiles chatlogs to create a storylike representation of the conversations. Check it out on the <a href="/projects">projects page</a>.
         </p>
       </div>
       <div className="about-links">
@@ -30,6 +30,14 @@ export default function About() {
           rel="noreferrer"
         >
           LinkedIn
+        </a>
+        <a
+          href="./public/Noah_Aguillon_Resume.pdf"
+          download= "Noah_Aguillon_Resume.pdf"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Resume
         </a>
       </div>
     </div>
