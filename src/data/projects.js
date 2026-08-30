@@ -8,7 +8,7 @@ export const projects = [
     date: "2025",
   },
   {
-    title: "Duelest.IOS",
+    title: "Duelist",
     description:
       "Created a mobile game using Swift and SwiftUI. Learned about game development, user interface design, and mobile app deployment.",
     link: "https://github.com/Vexivai/Duelist",
