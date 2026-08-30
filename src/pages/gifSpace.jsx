@@ -1,9 +1,11 @@
 import MouseFollower from "../labs/mouseFollwer.jsx";
+import ThreeStudy from "../labs/threeStudy.jsx";
 
-export default function MouseFollowerGif() {
+export default function generateGif() {
   return (
-    <div className="gif-stage">
-      <MouseFollower />
+    <div style={{ width: "100%", height: "500px"}}>
+      {/* <MouseFollower /> */}
+      <ThreeStudy />
     </div>
   );
 }

@@ -4,11 +4,12 @@ import Button from "../components/Buttons";
 import { getAssetPath } from "../components/paths";
 import "../labs/mouseFollwer.jsx";
 import MouseFollower from "../labs/mouseFollwer.jsx";
+import ThreeStudy from "../labs/threeStudy.jsx";
 
 //modal.setAppElement("#root");
 
 export default function Playground() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState(false);
   
   const PopupModal = ({isOpen, onClose, children}) => {
     if (!isOpen) return null;
@@ -36,16 +37,34 @@ export default function Playground() {
             title="Spotlight"
             image={getAssetPath("gifs/spotlight-preview.png")}
             previewGif={getAssetPath("gifs/spotlight.gif")}
-            onClick={() => setModalIsOpen(true)}
+            onClick={() => activeModal === "spotlight" ? setActiveModal(false) : setActiveModal("spotlight")}
             aria-label="Open modal"
           />
           <PopupModal
-            isOpen={modalIsOpen}
-            onClose={() => setModalIsOpen(false)}
+            isOpen={activeModal === "spotlight"}
+            onClose={() => setActiveModal(false)}
           >
             <MouseFollower />
             <h2>Spotlight following the mouse</h2>
             <p>To eventually be used as a visual effect in the movie club website.</p>
+          </PopupModal>
+          <Button
+            className="glass"
+            title="Rotating Cube"
+            image={getAssetPath("gifs/floating-cube-preview.png")}
+            previewGif={getAssetPath("gifs/floating_cube.gif")}
+            onClick={() => activeModal === "cube" ? setActiveModal(false) : setActiveModal("cube")}
+            aria-label="Open modal"
+          />
+          <PopupModal
+            isOpen={activeModal === "cube"}
+            onClose={() => setActiveModal(false)}
+          >
+            <div style={{ width: '100%', height: '400px' }}>
+            <ThreeStudy />
+            </div>
+            <h2>Rotating Cube</h2>
+            <p>A simple 3D cube that rotates in space.</p>
           </PopupModal>
         </div>
       </div>
