@@ -32,8 +32,8 @@ export default function About() {
           LinkedIn
         </a>
         <a
-          href="./public/Noah_Aguillon_Resume.pdf"
-          download= "Noah_Aguillon_Resume.pdf"
+          href={getAssetPath("public/Noah_Aguillon_Resume.pdf")}
+          download="Noah_Aguillon_Resume.pdf"
           target="_blank"
           rel="noreferrer"
         >
