@@ -70,8 +70,8 @@ export default function Playground() {
           <Button 
             className="glass"
             title="Book"
-            //image={getAssetPath("gifs/coming-soon-preview.png")}
-            //previewGif={getAssetPath("gifs/coming-soon.gif")}
+            image={getAssetPath("gifs/book-preview.png")}
+            previewGif={getAssetPath("gifs/book.gif")}
             onClick={() => activeModal === "book" ? setActiveModal(false) : setActiveModal("book")}
             aria-label="Open modal"
           />
@@ -82,6 +82,9 @@ export default function Playground() {
             <BookThree />
             <h2>Custom three implementation for another site</h2>
             <p>This is a test for using the libraries: @react-three/fiber, @react-three/drei, and @react-spring/three.</p>
+            <p>
+              Click on the book to zoom in and out. The book rotates based on the mouse position, and the pages have a subtle paper texture applied to them. The cover is a solid color, and the spine is a cylinder. The book also has an HTML overlay that displays the title and author of the book.
+            </p>
           </PopupModal>
         </div>
       </div>

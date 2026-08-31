@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 const Width = 2;
@@ -59,10 +59,68 @@ function usePageTexture(){
     }, [gl]);
 }
 
-function BookModel() {
+function useSpineTexture(title, author) {
+    const { gl } = useThree();
+
+    return useMemo(() => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 128;
+        canvas.height = 1024;
+        const context = canvas.getContext("2d");
+
+        context.fillStyle = "#8d5b3d";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        context.save();
+        context.translate(canvas.width / 2, canvas.height / 2);
+        context.rotate(Math.PI / 2);
+        //context.textAlign = "center";
+        context.textBaseline = "middle";
+        context.fillStyle = "#f5e9d9";
+
+        const titleFont = "bold 70px Lucida Handwriting, cursive";
+        const authorFont = "italic 30px Lucida Handwriting, cursive";
+        const separator = "               ";
+
+        context.font = titleFont;
+        const titleWidth = context.measureText(title).width;
+
+        context.font = authorFont;
+        const authorWidth = context.measureText(author).width;
+        const separatorWidth = context.measureText(separator).width;
+        
+        const totalWidth = titleWidth + separatorWidth + authorWidth;
+        let cursorX = -totalWidth / 2;
+
+        context.textAlign = "left";
+
+        context.font = authorFont;
+        context.fillText(author, cursorX, 0);
+        cursorX += authorWidth;
+        context.fillText(separator, cursorX, 0);
+        cursorX += separatorWidth;
+
+        context.font = titleFont;
+        context.fillText(title, cursorX, 0);
+        cursorX += titleWidth;
+
+        context.restore();
+        
+        const spineTexture = new THREE.CanvasTexture(canvas);
+        spineTexture.colorSpace = THREE.SRGBColorSpace;
+        spineTexture.anisotropy = gl.capabilities.getMaxAnisotropy();
+        spineTexture.needsUpdate = true;
+
+        return spineTexture;
+    }, [gl, title, author]);
+}
+
+function BookModel({title, author}) {
   const bookRef = useRef();
   const paperTexture = usePageTexture();
-  const { pointer } = useThree();
+  const spineTexture = useSpineTexture(title, author);
+  const { pointer, camera } = useThree();
+  const [zoomed, setZoomed] = useState(false);
 
   const coverMaterial = useMemo(
     () =>
@@ -78,12 +136,12 @@ function BookModel() {
   const spineMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "#f3eae7",
+        map: spineTexture,
         roughness: 0.96,
         metalness: 0.03,
         side: THREE.DoubleSide,
       }),
-    []
+    [spineTexture]
   );
 
   const pageMaterial = useMemo(
@@ -112,33 +170,20 @@ function BookModel() {
   bookRef.current.rotation.y = THREE.MathUtils.lerp(bookRef.current.rotation.y, targetY, 0.08);
   bookRef.current.rotation.x = THREE.MathUtils.lerp(bookRef.current.rotation.x, targetX, 0.08);
 
-    // bookRef.current.rotation.y = THREE.MathUtils.lerp(
-    //   bookRef.current.rotation.y,
-    //   pointer.x * 1.5,
-    //   0.12
-    // );
-
-    // bookRef.current.rotation.x = THREE.MathUtils.lerp(
-    //   bookRef.current.rotation.x,
-    //   -pointer.y * 0.9,
-    //   0.12
-    // );
-
-    // bookRef.current.rotation.z = THREE.MathUtils.lerp(
-    //   bookRef.current.rotation.z,
-    //   pointer.x * 0.2,
-    //   0.08
-    // );
+    const targetZ = zoomed ? 3 : 5;
+    camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.08);
   });
 
-  const arcAngle = Math.PI / 4; // 45°
-  const spineRadius = Depth / (2 * Math.sin(arcAngle / 2));
-  const spineOffset = spineRadius * Math.cos(arcAngle / 2);
+  //Terrible terrible time spent here
+  const spineCurve = Math.PI / 6; // 45°
+  const halfSpineCurve = spineCurve / 2;
+  const spineRadius = Depth / (2 * Math.sin(spineCurve / 2));
+  const spineOffset = spineRadius * Math.cos(spineCurve / 2);
 
   return (
-    <group ref={bookRef} rotation={[0, 0, 0]} position={[-1, 0, 0]}>
+    <group ref={bookRef} rotation={[0, 0, 0]} position={[-1, 0, 0]} onClick={(e) => {e.stopPropagation(); setZoomed((z) => !z);}}>
       <mesh position={[spineOffset, 0, 0]} material={spineMaterial}>
-        <cylinderGeometry args={[spineRadius, spineRadius, Height, 32, 1, true, -arcAngle, -arcAngle *2 ]} />
+        <cylinderGeometry args={[spineRadius, spineRadius, Height, 32, 1, true, -Math.PI/2 - halfSpineCurve, (spineCurve - halfSpineCurve) *2  ]} />
       </mesh>
 
       <mesh position={[Width / 2, 0, Depth / 2]} material={coverMaterial}>
@@ -164,13 +209,13 @@ function BookModel() {
           style={{
             width: "160px",
             textAlign: "center",
-            color: "white",
+            color: "#F5E9D9",
             fontFamily: "Lucida Handwriting, cursive",
             lineHeight: 1.2,
           }}
         >
-          <h3 style={{ margin: 0, fontSize: "22px" }}>The Diary of Jane</h3>
-          <p style={{ margin: "6px 0 0", fontSize: "12px" }}>Breaking Benjamin</p>
+            <p style={{ margin: "6px 0 0", fontSize: "12px" }}>{author}</p>
+            <h3 style={{ margin: 0, fontSize: "22px" }}>{title}</h3>
         </div>
       </Html>
     </group>
@@ -184,7 +229,7 @@ export default function BookThree() {
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
         <ambientLight intensity={1.2} color="#be9797" />
         <pointLight position={[3, 3, 3]} color="#5b62e0" intensity={1.2} />
-        <BookModel />
+        <BookModel title="The Diary of Jane" author="Breaking Benjamin" />
       </Canvas>
     </div>
   );
