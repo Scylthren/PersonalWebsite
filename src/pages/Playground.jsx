@@ -5,6 +5,7 @@ import { getAssetPath } from "../components/paths";
 import "../labs/mouseFollwer.jsx";
 import MouseFollower from "../labs/mouseFollwer.jsx";
 import ThreeStudy from "../labs/threeStudy.jsx";
+import BookThree from "../labs/bookThree.jsx";
 
 //modal.setAppElement("#root");
 
@@ -65,6 +66,22 @@ export default function Playground() {
             </div>
             <h2>Rotating Cube</h2>
             <p>A simple 3D cube that rotates in space.</p>
+          </PopupModal>
+          <Button 
+            className="glass"
+            title="Book"
+            //image={getAssetPath("gifs/coming-soon-preview.png")}
+            //previewGif={getAssetPath("gifs/coming-soon.gif")}
+            onClick={() => activeModal === "book" ? setActiveModal(false) : setActiveModal("book")}
+            aria-label="Open modal"
+          />
+          <PopupModal
+            isOpen={activeModal === "book"}
+            onClose={() => setActiveModal(false)}
+          >
+            <BookThree />
+            <h2>Custom three implementation for another site</h2>
+            <p>This is a test for using the libraries: @react-three/fiber, @react-three/drei, and @react-spring/three.</p>
           </PopupModal>
         </div>
       </div>

@@ -18,7 +18,10 @@
     "react-markdown": "^9.0.1",
     "react-modal": "^3.16.3",
     "react-use": "^17.6.1",
-    "three":"0.185.1"
+    "three":"0.185.1",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/drei": "^9.112.2", 
+    "@react-spring/three": "^9.7.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
