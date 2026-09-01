@@ -1,6 +1,5 @@
 import {useEffect, useRef} from "react";
 import * as THREE from "three";
-
 function ThreeStudy() {
   const containerRef = useRef(null);
 
@@ -12,12 +11,26 @@ function ThreeStudy() {
     const height = container.clientHeight;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     camera.position.z = 5;
 
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize( width, height );
+    renderer.setSize(width, height, false);
     container.appendChild( renderer.domElement );
+    const resizeObserver = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const { width, height } = entry.contentRect;
+      if (width === 0 || height === 0) continue; // container hidden/unmounted mid-transition
+
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+  });
+
+    
+
+    resizeObserver.observe(container);
 
     const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
@@ -37,6 +50,7 @@ function ThreeStudy() {
 
     return () => {
         cancelAnimationFrame(frameId);
+        resizeObserver.disconnect();
         geometry.dispose();
         material.dispose();
         renderer.dispose();

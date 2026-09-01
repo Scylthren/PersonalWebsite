@@ -61,7 +61,7 @@ export default function Playground() {
             isOpen={activeModal === "cube"}
             onClose={() => setActiveModal(false)}
           >
-            <div style={{ width: '100%', height: '400px' }}>
+            <div style={{ width: '100%', height: 'min(400px, 50vh)' }}>
             <ThreeStudy />
             </div>
             <h2>Rotating Cube</h2>
