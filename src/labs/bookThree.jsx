@@ -1,11 +1,28 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
 const Width = 2;
 const Height = 3;
 const Depth = 0.3;
+
+//Fixing the font differences between IOS and Android.
+function useFontReady(specs) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(specs.map((spec) => document.fonts.load(spec))).then(() => {
+      if (!cancelled) setReady(true);
+    });
+    return () => { cancelled = true; };
+  }, [specs.join("|")]);
+
+  return ready;
+}
+
+const FONT_FAMILY = "'Rogue Script', cursive", FONT_FAMILY2 = "'Monsieur La Doulaise', cursive";
 
 //Attempt at creating a book model with pages that have a paper texture. The book rotates based on the mouse position, and the pages have a subtle paper texture applied to them. The cover is a solid color, and the spine is a cylinder. The book also has an HTML overlay that displays the title and author of the book.
 
@@ -59,7 +76,7 @@ function usePageTexture(){
     }, [gl]);
 }
 
-function useSpineTexture(title, author) {
+function useSpineTexture(title, author, fontReady) {
     const { gl } = useThree();
 
     return useMemo(() => {
@@ -78,9 +95,9 @@ function useSpineTexture(title, author) {
         context.textBaseline = "middle";
         context.fillStyle = "#f5e9d9";
 
-        const titleFont = "bold 70px Lucida Handwriting, cursive";
-        const authorFont = "italic 30px Lucida Handwriting, cursive";
-        const separator = "               ";
+        const titleFont = `70px ${FONT_FAMILY}`;
+        const authorFont = `30px ${FONT_FAMILY2}`;
+        const separator = "                           ";
 
         context.font = titleFont;
         const titleWidth = context.measureText(title).width;
@@ -112,15 +129,17 @@ function useSpineTexture(title, author) {
         spineTexture.needsUpdate = true;
 
         return spineTexture;
-    }, [gl, title, author]);
+    }, [gl, title, author, fontReady]);
 }
 
 function BookModel({title, author}) {
   const bookRef = useRef();
+  const fontReady = useFontReady([`70px ${FONT_FAMILY}`, `30px ${FONT_FAMILY2}`]);
   const paperTexture = usePageTexture();
-  const spineTexture = useSpineTexture(title, author);
+  const spineTexture = useSpineTexture(title, author, fontReady);
   const { pointer, camera } = useThree();
   const [zoomed, setZoomed] = useState(false);
+  
 
   const coverMaterial = useMemo(
     () =>
@@ -201,8 +220,8 @@ function BookModel({title, author}) {
       <Html
         transform
         position={[Width / 2, 0, Depth / 2 + 0.01]}
-        rotation={[0, Math.PI * 2, 0]}
-        distanceFactor={6}
+        rotation={[0,0, 0]}
+        distanceFactor={5}
         occlude={[bookRef]}
       >
         <div
@@ -210,12 +229,11 @@ function BookModel({title, author}) {
             width: "160px",
             textAlign: "center",
             color: "#F5E9D9",
-            fontFamily: "Lucida Handwriting, cursive",
             lineHeight: 1.2,
           }}
         >
-            <p style={{ margin: "6px 0 0", fontSize: "12px" }}>{author}</p>
-            <h3 style={{ margin: 0, fontSize: "22px" }}>{title}</h3>
+            <p style={{ margin: "6px 0 0", fontFamily: `${FONT_FAMILY2}`, fontSize: "12px", fontWeight: 400 }}>{author}</p>
+            <h3 style={{ margin: 0, fontFamily: `${FONT_FAMILY}`, fontSize: "22px", fontWeight: 700 }}>{title}</h3>
         </div>
       </Html>
     </group>
@@ -228,7 +246,7 @@ export default function BookThree() {
     <div style={{ width: "100%", height: "420px" }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
         <ambientLight intensity={1.2} color="#be9797" />
-        <pointLight position={[3, 3, 3]} color="#5b62e0" intensity={1.2} />
+        <pointLight position={[3, 3, 3]} color="#005983" intensity={1.2} />
         <BookModel title="The Diary of Jane" author="Breaking Benjamin" />
       </Canvas>
     </div>
